@@ -3,7 +3,7 @@ function Footer (){
         <div className="footer-copyright">
             <div className="container ">
                 © {new Date().getFullYear()} Yevgen Prushynskyy
-                <a className="grey-text text-lighten-4 right" href="#!">Github</a>
+                <a className="grey-text text-lighten-4 right" href="src/layout/Footer#!">Github</a>
             </div>
         </div>
     </footer>

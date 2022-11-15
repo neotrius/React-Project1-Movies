@@ -1,5 +1,8 @@
 import React from 'react'
 import Movies from '../components/Movies'
+import KEY_omdbapi from '../API/API'
+import Preloader from '../components/Preloader'
+import Search from '../components/Search'
 
 class Main extends React.Component {
 
@@ -7,8 +10,15 @@ class Main extends React.Component {
         movies: []
     }
 
+
     componentDidMount() {
-        fetch('http://www.omdbapi.com/?apikey=34410801&s=matrix')
+        fetch(`http://www.omdbapi.com/?apikey=${KEY_omdbapi}&s=matrix`)
+            .then(res => res.json())
+            .then(data => this.setState({movies: data.Search}))
+    }
+
+    searchMovies = (str) => {
+        fetch(`http://www.omdbapi.com/?apikey=${KEY_omdbapi}&s=${str}`)
             .then(res => res.json())
             .then(data => this.setState({movies: data.Search}))
     }
@@ -17,11 +27,10 @@ class Main extends React.Component {
         const {movies} = this.state
 
         return <main className="container content">
+            <Search searchMovies={this.searchMovies}/>
             {movies.length ? (
                 <Movies movies={this.state.movies}/>
-            ) : (
-                <h5>Loading...</h5>
-            )}
+            ) : <Preloader/>}
         </main>
     }
 }
